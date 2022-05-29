@@ -2,6 +2,9 @@
   "name": "guess-the-sound",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Adam Tkaczyk"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,16 +12,28 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.0",
+    "@mui/material": "^5.8.1",
+    "@react-hookz/web": "^14.2.2",
     "next": "12.1.6",
+    "next-seo": "5.4.0",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-use-audio-player": "^1.2.6"
   },
   "devDependencies": {
     "@types/node": "17.0.35",
     "@types/react": "18.0.9",
     "@types/react-dom": "18.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
     "eslint": "8.16.0",
     "eslint-config-next": "12.1.6",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "prettier": "^2.6.2",
+    "prettier-eslint": "15.0.1",
     "typescript": "4.7.2"
   }
 }
