@@ -1,6 +1,6 @@
 import { Grid, Box } from '@mui/material'
 import { Sound } from '../data/sounds'
-import AnswerCard from './AnswerCard'
+import AnswerCard from './cards/AnswerCard'
 
 interface Props {
   answers: Sound[]

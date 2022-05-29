@@ -1,31 +1,16 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Container,
-  IconButton,
-  CardActionArea,
-  Typography,
-  Stack,
-  Grid,
-} from '@mui/material'
+import { Container, Typography, Stack } from '@mui/material'
 import { useToggle } from '@react-hookz/web'
 import type { GetServerSideProps, NextPage } from 'next'
-import { useEffect, useState } from 'react'
-import { useAudioPlayer } from 'react-use-audio-player'
-import AnswerCard from '../components/AnswerCard'
+import { useState } from 'react'
 import AnswersGrid from '../components/AnswersGrid'
-import PlayCard from '../components/PlayCard'
-import WinDialog from '../components/WinDialog'
+import PlayCard from '../components/cards/PlayCard'
+import WinDialog from '../components/dialogs/WinDialog'
 import { allSounds, Sound } from '../data/sounds'
 import { getAnswers, shuffleArray } from '../utils'
+import LossDialog from '../components/dialogs/LossDialog'
 
 interface Props {
   initSounds: Sound[]
-  // seed: number
 }
 
 const Home: NextPage<Props> = ({ initSounds }: Props) => {
@@ -33,34 +18,41 @@ const Home: NextPage<Props> = ({ initSounds }: Props) => {
 
   const [sounds, setSounds] = useState(initSounds)
   const [currentSound, setCurrentSound] = useState<Sound>(sounds[0])
-  const [isDialogOpen, toggleIsDialogOpen] = useToggle()
+  const [isWinDialogOpen, toggleWinIsDialogOpen] = useToggle()
+  const [isLossDialogOpen, toggleLossIsDialogOpen] = useToggle()
 
   const answers = getAnswers(currentSound.category)
 
   const handleChooseAnswer = (name: string) => {
-    if (name === currentSound.name) {
-      setScore(score + 1)
-      setSounds((prev) => prev.filter((s) => s.name !== name))
-      const nextSound = sounds[1]
-      if (!nextSound) {
-        toggleIsDialogOpen()
-        return
-      }
-      setCurrentSound(nextSound)
+    if (name !== currentSound.name) {
+      toggleLossIsDialogOpen()
+      return
     }
+    setScore(score + 1)
+    setSounds((prev) => prev.filter((s) => s.name !== name))
+    const nextSound = sounds[1]
+    if (!nextSound) {
+      toggleWinIsDialogOpen()
+      return
+    }
+    setCurrentSound(nextSound)
+    return
   }
 
   const restartGame = () => {
-    // TODO setScore(0), setSounds(shuffleArray(allSounds)), setCurrentSound(sounds[0]) etc.
-    window.location.reload()
+    setScore(0)
+    setSounds(() => shuffleArray(allSounds))
+    toggleWinIsDialogOpen(false)
+    toggleLossIsDialogOpen(false)
   }
 
   return (
     <Container sx={{ border: '2px solid black' }}>
-      <WinDialog isOpen={isDialogOpen} onClose={restartGame} />
+      <WinDialog isOpen={isWinDialogOpen} onClose={restartGame} />
+      <LossDialog isOpen={isLossDialogOpen} onClose={restartGame} />
       <Stack alignItems="center" sx={{ mb: 6 }}>
         <Typography variant="h1" align="center">
-          Guess The Sound
+          Guess The Sound 🎵
         </Typography>
         <Typography variant="h2" sx={{ my: 2 }}>
           Score: {score}
