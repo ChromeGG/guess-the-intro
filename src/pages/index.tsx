@@ -1,7 +1,7 @@
 import { Container, Typography, Stack } from '@mui/material'
 import { useToggle } from '@react-hookz/web'
 import type { GetServerSideProps, NextPage } from 'next'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import AnswersGrid from '../components/AnswersGrid'
 import PlayCard from '../components/cards/PlayCard'
 import WinDialog from '../components/dialogs/WinDialog'
@@ -18,7 +18,9 @@ const Home: NextPage<Props> = ({ initSounds }: Props) => {
   const [score, setScore] = useState(0)
 
   const [sounds, setSounds] = useState(initSounds)
+  console.log('~ sounds', sounds)
   const [currentSound, setCurrentSound] = useState<Sound>(sounds[0])
+
   const [isWinDialogOpen, toggleWinIsDialogOpen] = useToggle()
   const [isLossDialogOpen, toggleLossIsDialogOpen] = useToggle()
 
@@ -40,26 +42,29 @@ const Home: NextPage<Props> = ({ initSounds }: Props) => {
     return
   }
 
-  const maxScore = useMemo(() => sounds.length, [])
+  const maxScore = 12 // TODO: make this dynamic
 
   const restartGame = () => {
     setScore(0)
-    setSounds(() => shuffleArray(allSounds))
+    setSounds(() => shuffleArray(initSounds))
     toggleWinIsDialogOpen(false)
     toggleLossIsDialogOpen(false)
   }
 
   return (
     <>
-      <Container sx={{ border: '2px solid black' }}>
+      <Container sx={{ mb: 2 }}>
         <WinDialog isOpen={isWinDialogOpen} onClose={restartGame} />
-        <LossDialog isOpen={isLossDialogOpen} onClose={restartGame} />
+        <LossDialog
+          isOpen={isLossDialogOpen}
+          onClose={() => toggleLossIsDialogOpen()}
+        />
         <Stack alignItems="center" sx={{ mb: 6 }}>
           <Typography variant="h1" align="center">
-            Guess The Sound 🎵
+            Guess The Intro 🎵
           </Typography>
           <Typography variant="h2" sx={{ my: 2 }}>
-            Score: {score} / {maxScore}
+            Complete: {score} / {maxScore}
           </Typography>
           <PlayCard fileName={currentSound.url} />
         </Stack>

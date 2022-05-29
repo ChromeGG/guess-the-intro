@@ -13,6 +13,7 @@ const PlayCard = ({ fileName }: Props) => {
   // typeof window === 'undefined'
   //   ? 'http://localhost:3000'
   //   : window.location.origin
+  console.log(`/sounds/${fileName}`)
   const { play, error, playing } = useAudioPlayer({
     src: `/sounds/${fileName}`,
     html5: true,

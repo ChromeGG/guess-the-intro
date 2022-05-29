@@ -10,7 +10,7 @@ const WinDialog = ({ isOpen, onClose }: Props) => {
     <BaseDialog
       isOpen={isOpen}
       title="Congratulations! 🎊"
-      text="You guessed all the sounds. Respect 😎"
+      text="You guessed all the intros. Respect 😎"
       onClose={onClose}
     />
   )

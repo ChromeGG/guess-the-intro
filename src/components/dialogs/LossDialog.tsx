@@ -10,7 +10,7 @@ const LossDialog = ({ isOpen, onClose }: Props) => {
     <BaseDialog
       isOpen={isOpen}
       title="Bad answer! 😢"
-      text=""
+      text="... but you can try again 😉"
       onClose={onClose}
     />
   )
