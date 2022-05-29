@@ -9,6 +9,14 @@
     // I suggest you add those two rules:
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-ignore": "allow-with-description",
+        "ts-nocheck": "allow-with-description",
+        "minimumDescriptionLength": 3
+      }
+    ],
     "prettier/prettier": ["error"]
   }
 }

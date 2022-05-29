@@ -1,5 +1,4 @@
 import { Categories, movieSounds, Sound } from './data/sounds'
-// import seedrandom from 'seedrandom'
 
 export function shuffleArray(array: Sound[]) {
   return array

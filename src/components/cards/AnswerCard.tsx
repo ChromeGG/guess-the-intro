@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
-  Typography,
-} from '@mui/material'
+import { CardMedia, CardContent, Typography } from '@mui/material'
 import Image from 'next/image'
 import BaseCard from './BaseCard'
 
@@ -18,12 +12,14 @@ const AnswerCard = ({ name, image, onClick }: Props) => {
   const src = `/images/${image}`
   return (
     <BaseCard onClick={() => onClick(name)}>
-      {/* <CardMedia>
+      <CardMedia>
         <Image src={src} height={200} width={400} alt={name} />
-      </CardMedia> */}
+      </CardMedia>
       <CardMedia src={src} image={src} />
       <CardContent>
-        <Typography variant="h5">{name}</Typography>
+        <Typography variant="h6" component="div">
+          {name}
+        </Typography>
       </CardContent>
     </BaseCard>
   )

@@ -1,4 +1,4 @@
-import { Grid, Box } from '@mui/material'
+import { Box, useMediaQuery } from '@mui/material'
 import { Sound } from '../data/sounds'
 import AnswerCard from './cards/AnswerCard'
 
@@ -8,11 +8,13 @@ interface Props {
 }
 
 const AnswersGrid = ({ answers, onClick }: Props) => {
+  const isXs = useMediaQuery('(max-width: 606px)')
+  const minWidth = isXs ? 200 : 250
   return (
     <Box
       sx={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+        gridTemplateColumns: `repeat(auto-fit, minmax(${minWidth}px, 1fr))`,
         gap: 3,
       }}
     >

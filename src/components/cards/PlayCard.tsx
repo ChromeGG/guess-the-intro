@@ -1,33 +1,20 @@
-import {
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
-  Typography,
-  Stack,
-} from '@mui/material'
+import { Typography } from '@mui/material'
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined'
 import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 import BaseCard from './BaseCard'
 import { useAudioPlayer } from 'react-use-audio-player'
-
-enum State {
-  'idle',
-  'playing',
-  'finished',
-}
 
 interface Props {
   fileName: string
 }
 
 const PlayCard = ({ fileName }: Props) => {
-  const origin = 'http://localhost:3000'
+  // const origin = 'http://localhost:3000'
   // typeof window === 'undefined'
   //   ? 'http://localhost:3000'
   //   : window.location.origin
   const { play, error, playing } = useAudioPlayer({
-    src: `${origin}/sounds/${fileName}`,
+    src: `/sounds/${fileName}`,
     html5: true,
     format: ['mp3'],
   })

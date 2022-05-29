@@ -6,7 +6,6 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material'
-import { textAlign } from '@mui/system'
 
 interface Props {
   isOpen: boolean

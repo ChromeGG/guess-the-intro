@@ -1,13 +1,14 @@
 import { Container, Typography, Stack } from '@mui/material'
 import { useToggle } from '@react-hookz/web'
 import type { GetServerSideProps, NextPage } from 'next'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import AnswersGrid from '../components/AnswersGrid'
 import PlayCard from '../components/cards/PlayCard'
 import WinDialog from '../components/dialogs/WinDialog'
 import { allSounds, Sound } from '../data/sounds'
 import { getAnswers, shuffleArray } from '../utils'
 import LossDialog from '../components/dialogs/LossDialog'
+import Footer from '../components/Footer'
 
 interface Props {
   initSounds: Sound[]
@@ -39,6 +40,8 @@ const Home: NextPage<Props> = ({ initSounds }: Props) => {
     return
   }
 
+  const maxScore = useMemo(() => sounds.length, [])
+
   const restartGame = () => {
     setScore(0)
     setSounds(() => shuffleArray(allSounds))
@@ -47,20 +50,23 @@ const Home: NextPage<Props> = ({ initSounds }: Props) => {
   }
 
   return (
-    <Container sx={{ border: '2px solid black' }}>
-      <WinDialog isOpen={isWinDialogOpen} onClose={restartGame} />
-      <LossDialog isOpen={isLossDialogOpen} onClose={restartGame} />
-      <Stack alignItems="center" sx={{ mb: 6 }}>
-        <Typography variant="h1" align="center">
-          Guess The Sound 🎵
-        </Typography>
-        <Typography variant="h2" sx={{ my: 2 }}>
-          Score: {score}
-        </Typography>
-        <PlayCard fileName={currentSound.url} />
-      </Stack>
-      <AnswersGrid answers={answers} onClick={handleChooseAnswer} />
-    </Container>
+    <>
+      <Container sx={{ border: '2px solid black' }}>
+        <WinDialog isOpen={isWinDialogOpen} onClose={restartGame} />
+        <LossDialog isOpen={isLossDialogOpen} onClose={restartGame} />
+        <Stack alignItems="center" sx={{ mb: 6 }}>
+          <Typography variant="h1" align="center">
+            Guess The Sound 🎵
+          </Typography>
+          <Typography variant="h2" sx={{ my: 2 }}>
+            Score: {score} / {maxScore}
+          </Typography>
+          <PlayCard fileName={currentSound.url} />
+        </Stack>
+        <AnswersGrid answers={answers} onClick={handleChooseAnswer} />
+      </Container>
+      <Footer />
+    </>
   )
 }
 
